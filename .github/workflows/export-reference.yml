@@ -1,0 +1,26 @@
+name: Export reference ODT
+on:
+  push:
+    paths:
+      - '.github/workflows/export-reference.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: write
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Package reference document
+        run: |
+          test -f "Расчет отказа забивных свай.odt"
+          mkdir -p /tmp/export
+          cp "Расчет отказа забивных свай.odt" /tmp/export/
+          cd /tmp/export
+          zip -9 reference-odt.zip "Расчет отказа забивных свай.odt"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reference-odt
+          path: /tmp/export/reference-odt.zip
+          retention-days: 1
