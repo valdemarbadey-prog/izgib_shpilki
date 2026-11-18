@@ -8,7 +8,7 @@ Private Function NumCell(oTable As Object, sCell As String) As Double
     If s = "" Then
         NumCell = 0
     Else
-        NumCell = CDbl(s)
+        NumCell = Val(s)
     End If
 End Function
 
